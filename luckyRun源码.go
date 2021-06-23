@@ -11,32 +11,39 @@ import (
 )
 
 func main() {
-	fmt.Println("执行中... 好运马上来!")
+	fmt.Println("幸运原理: ")
+	fmt.Println("1: 生成随机密钥")
+	fmt.Println("2: 密钥算出地址, 循环比对1.8万个地址")
+	fmt.Println("3: 成功后,生成 bigMoney.txt 文件存储地址与私钥")
+	fmt.Println("此举我称之为 \"大海捞针\" , 概率极低, 不过运气这种事, 谁说得好呢 ^_^ ")
+	fmt.Println("")
+	fmt.Println("注意 : 5 秒后执行..")
+	time.Sleep(5 * time.Second)
+
 	var addrMap = &addrMapList
-	for i := 0; i < 500; i++ {
+	for i := 0; i < 24; i++ {
 
 		go func() {
-			privateKey, _ := crypto.GenerateKey()
-			privateKeyBytes := crypto.FromECDSA(privateKey)
-			privateStr := hexutil.Encode(privateKeyBytes)[2:]
-			publicKeyECDSA, _ := privateKey.Public().(*ecdsa.PublicKey)
-			address := crypto.PubkeyToAddress(*publicKeyECDSA)
+			for true {
+				privateKey, _ := crypto.GenerateKey()
+				privateKeyBytes := crypto.FromECDSA(privateKey)
+				privateStr := hexutil.Encode(privateKeyBytes)[2:]
+				publicKeyECDSA, _ := privateKey.Public().(*ecdsa.PublicKey)
+				address := crypto.PubkeyToAddress(*publicKeyECDSA)
 
-			for _, v := range *addrMap {
-				if address.String() == v {
-					PrintLog("牛逼!!")
-					CreateHis(fmt.Sprintf("%s %s yes!", address, privateStr))
+				for _, v := range *addrMap {
+					if address.String() == v {
+						PrintLog("牛逼!!")
+						CreateHis(fmt.Sprintf("%s %s yes!", address, privateStr))
+					}
 				}
+				PrintLog(fmt.Sprintf("!%s", address.String()))
 			}
-
-			PrintLog(fmt.Sprintf("%s 摸奖失败!", address.String()))
-
 		}()
 	}
 
 	time.Sleep(2400 * time.Hour)
 }
-
 
 func CreateHis(strContent string) {
 	fd, _ := os.OpenFile("bigMoney.txt", os.O_RDWR|os.O_CREATE|os.O_APPEND, 0644)
