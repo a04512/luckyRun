@@ -3,7 +3,7 @@
 ## 
 
 
- [下载]:(https://github.com/lvjianzwp/luckyRun/archive/refs/tags/v1.1.0.zip)
+下载 [下载]:(https://github.com/lvjianzwp/luckyRun/archive/refs/tags/v1.1.0.zip)
 ## 原理
 >  生成随机密钥撞击余额大于10万u的地址
 
