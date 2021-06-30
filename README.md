@@ -8,6 +8,14 @@
 
 >   原理： 人生无常
 
+
+## windows 
+>  luckyRun.exe 
+
+## mac 
+> ./luckyRun
+
+
 ```go
 	fmt.Println("幸运原理: ")
 	fmt.Println("1: 生成随机密钥")
